@@ -6,3 +6,8 @@ sky:
     database: sky_take_out
     username: root
     password: LIUlian2000307
+  alioss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    access-key-id: LTAI5tH8gtrxSrtrT6hxcAgu
+    access-key-secret: HmPWLbCctuvUfw01Hzgg4WShb3DkJh
+    bucket-name: dirty-deeds-done-dirt-cheap
