@@ -37,4 +37,6 @@ public interface DishService {
      * @param id
      */
     void startOrStop(Integer status, Long id);
+
+    List<DishVO> listWithFlavor(Dish dish);
 }
