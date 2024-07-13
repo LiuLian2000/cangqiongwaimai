@@ -40,4 +40,11 @@ public class OrderController {
         return Result.success(orderSubmitVO);
     }
 
+    @PutMapping("/payment")
+    @ApiOperation("订单支付")
+    public Result<OrderPaymentVO> paymeny(@RequestBody OrdersPaymentDTO ordersPaymentDTO){
+        orderService.paySuccess(ordersPaymentDTO.getOrderNumber());
+        OrderPaymentVO orderPaymentVO = new OrderPaymentVO();
+        return Result.success(orderPaymentVO);
+    }
 }

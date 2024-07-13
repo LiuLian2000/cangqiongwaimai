@@ -3,6 +3,7 @@ package com.sky.service.impl;
 import com.fasterxml.jackson.databind.ser.Serializers;
 import com.sky.constant.MessageConstant;
 import com.sky.context.BaseContext;
+import com.sky.dto.OrdersPaymentDTO;
 import com.sky.dto.OrdersSubmitDTO;
 import com.sky.entity.AddressBook;
 import com.sky.entity.OrderDetail;
@@ -92,4 +93,21 @@ public class OrderServiceimpl implements OrderService {
 
         return orderSubmitVO;
     }
+
+    @Override
+    public void paySuccess(String orderNumber) {
+        Long userId = BaseContext.getCurrentId();
+        Orders ordersDb = orderMapper.getByOrderNumberAndUserId(orderNumber, userId);
+
+        Orders orders = Orders.builder()
+                .status(Orders.TO_BE_CONFIRMED)
+                .payStatus(Orders.PAID)
+                .checkoutTime(LocalDateTime.now())
+                .id(ordersDb.getId())
+                .build();
+
+        orderMapper.update(orders);
+    }
+
+
 }
