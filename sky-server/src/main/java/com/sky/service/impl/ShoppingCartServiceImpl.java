@@ -1,5 +1,6 @@
 package com.sky.service.impl;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.sky.context.BaseContext;
 import com.sky.dto.ShoppingCartDTO;
 import com.sky.entity.Dish;
@@ -71,5 +72,28 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 userId(BaseContext.getCurrentId()).
                 build());
 
+    }
+
+    @Override
+    public void subShoppingCart(ShoppingCartDTO shoppingCartDTO) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(shoppingCartDTO,shoppingCart);
+
+        shoppingCart.setUserId(BaseContext.getCurrentId());
+
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+
+        if(list != null && list.size()>0){
+            shoppingCart = list.get(0);
+
+            Integer number = shoppingCart.getNumber();
+
+            if(number == 1){
+                shoppingCartMapper.deleteById(shoppingCart.getId());
+            }else{
+                shoppingCart.setNumber(shoppingCart.getNumber()-1);
+                shoppingCartMapper.updateNumberById(shoppingCart);
+            }
+        }
     }
 }
