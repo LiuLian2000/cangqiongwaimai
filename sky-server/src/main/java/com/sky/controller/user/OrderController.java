@@ -47,4 +47,9 @@ public class OrderController {
         OrderPaymentVO orderPaymentVO = new OrderPaymentVO();
         return Result.success(orderPaymentVO);
     }
+    @GetMapping("/historyOrders")
+    public Result<PageResult> page(int page,int pageSize,Integer status){
+        PageResult pageResult = orderService.pageQuery4User(page,pageSize,status);
+        return Result.success(pageResult);
+    }
 }
