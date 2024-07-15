@@ -52,4 +52,9 @@ public class OrderController {
         PageResult pageResult = orderService.pageQuery4User(page,pageSize,status);
         return Result.success(pageResult);
     }
+    @GetMapping("/orderDetail/{id}")
+    public Result<OrderVO> details(@PathVariable("id") Long id){
+        OrderVO orderVo = orderService.details(id);
+        return Result.success(orderVo);
+    }
 }
